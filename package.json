@@ -1,0 +1,52 @@
+{
+  "name": "app-model",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/index.ts",
+    "build": "tsc",
+    "test:up": "docker-compose -f docker-compose.test.yml up -d",
+    "test:down": "docker-compose -f docker-compose.test.yml down",
+    "test:watch": "jest --watchAll",
+    "test": "jest",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/core": "^1.3.59",
+    "@swc/jest": "^0.2.26",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.1",
+    "@types/lodash": "^4.14.194",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.41.0",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "prisma": "^4.14.1",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.1",
+    "@types/cors": "^2.8.13",
+    "@types/helmet": "^4.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "lodash": "^4.17.21",
+    "ts-node-dev": "^2.0.0"
+  }
+}
