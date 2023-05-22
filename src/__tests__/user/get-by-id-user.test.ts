@@ -45,6 +45,7 @@ describe('User API - GET BY ID /user', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('name');
     expect(response.body).toHaveProperty('email');
+    expect(response.body).not.toHaveProperty('password');
     expect(response.body).toHaveProperty('status');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');

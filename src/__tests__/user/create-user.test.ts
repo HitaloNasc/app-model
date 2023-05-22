@@ -108,6 +108,7 @@ describe('User API - POST CREATE /user', () => {
     expect(response.body).toHaveProperty('name', payload.name);
     expect(response.body).toHaveProperty('email', payload.email);
     expect(response.body).toHaveProperty('status', STATUS.ACTIVE);
+    expect(response.body).not.toHaveProperty('password');
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
   });
