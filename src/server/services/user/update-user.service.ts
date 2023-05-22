@@ -1,9 +1,9 @@
 import { Logger } from '../../../common/lib/logger';
 import { Errors } from '../../../common/lib/http-exeption';
-import { IUser } from '../interfaces/user-entity.interface';
-import { IUpdateUser } from '../interfaces/update-user.interface';
-import { UserRepository } from '../repository/user.repository';
-import { STATUS } from '../consts/user-status.consts';
+import { IUser } from '../../entities/user/user.entity';
+import { IUpdateUser } from './interfaces/update-user.interface';
+import { UserRepository } from '../../repositories/user/user.repository';
+import { STATUS } from './consts/user-status.consts';
 import { hashPassword } from '../../../common/lib/hash-password';
 import { validateEmail } from '../../../common/lib/validate-email';
 import { validatePasswordStrength } from '../../../common/lib/validate-password-strength';
@@ -72,6 +72,15 @@ export class UpdateUserService {
       return;
     }
 
-    return await this.repository.update(id, data);
+    const userUpdated = await this.repository.update(id, data);
+
+    return {
+      id: userUpdated.id,
+      name: userUpdated.name,
+      email: userUpdated.email,
+      status: userUpdated.status,
+      createdAt: userUpdated.createdAt,
+      updatedAt: userUpdated.updatedAt,
+    };
   }
 }

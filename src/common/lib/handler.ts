@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Response } from 'express';
 import { Logger } from './logger';
 import { Errors } from './http-exeption';
@@ -38,7 +39,7 @@ export class Handler {
     let result;
     if (promise) {
       try {
-        let res = await promise;
+        const res = await promise;
         result = this.global(response, 200, res);
       } catch (error) {
         result = this.error(response, error);

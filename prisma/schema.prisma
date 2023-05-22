@@ -8,11 +8,65 @@ datasource db {
 }
 
 model User {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  name        String
+  password    String
+  roles       Role[]
+  status      Int
+  createdAt   DateTime
+  updatedAt   DateTime
+  Group       Group?        @relation(fields: [groupId], references: [id])
+  groupId     Int?
+  AuthToken   AuthToken[]
+  ActivityLog ActivityLog[]
+}
+
+model Role {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
+  permissions Permission[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  User        User?        @relation(fields: [userId], references: [id])
+  userId      Int?
+}
+
+model Permission {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  resource    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Role        Role?    @relation(fields: [roleId], references: [id])
+  roleId      Int?
+}
+
+model Group {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String
-  password  String
-  status    Int
-  createdAt DateTime
-  updatedAt DateTime
+  name      String   @unique
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuthToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  type      String // Pode ser 'access' ou 'refresh'
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  userId    Int
+}
+
+model ActivityLog {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  details   String?
+  createdAt DateTime @default(now())
+  userId    Int
 }

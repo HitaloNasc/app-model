@@ -1,7 +1,7 @@
 import { Logger } from '../../../common/lib/logger';
 import { PrismaClient } from '@prisma/client';
-import { IUserRepository } from '../interfaces/user-repository.interface';
-import { IUser } from '../interfaces/user-entity.interface';
+import { IUserRepository } from './user-repository.interface';
+import { IUser } from '../../entities/user/user.entity';
 
 export class UserRepository implements IUserRepository {
   private prisma: PrismaClient;

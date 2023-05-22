@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import request from 'supertest';
-import app from '../../../app';
+import app from '../../app';
 import { PrismaClient } from '@prisma/client';
+import { IUser } from '../../server/entities/user/user.entity';
 
 describe('User API - GET BY ID /user', () => {
   let prisma: PrismaClient;
@@ -17,7 +19,18 @@ describe('User API - GET BY ID /user', () => {
     prisma = new PrismaClient();
   });
 
+  let userTest: IUser;
   beforeEach(async () => {
+    const response = await createUser({
+      name: 'test',
+      email: 'test-get-by-id@test.test',
+      password: 'S3nh@F0rt3',
+    });
+
+    userTest = response.body;
+  });
+
+  afterEach(async () => {
     await prisma.user.deleteMany();
   });
 
@@ -26,13 +39,7 @@ describe('User API - GET BY ID /user', () => {
   });
 
   test('should return user found', async () => {
-    const user = await createUser({
-      name: 'test',
-      email: 'test-get-by-id@test.test',
-      password: 'S3nh@F0rt3',
-    });
-
-    const response = await getById(user.body.id);
+    const response = await getById(userTest.id!);
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('id');

@@ -1,6 +1,6 @@
 import { Logger } from '../../../common/lib/logger';
 import { Errors } from '../../../common/lib/http-exeption';
-import { UserRepository } from '../repository/user.repository';
+import { UserRepository } from '../../repositories/user/user.repository';
 
 export class GetByIdUserService {
   private repository: UserRepository;
@@ -19,6 +19,13 @@ export class GetByIdUserService {
       throw Errors.NOT_FOUND([{ key: 'error_404_user', data: { id } }]);
     }
 
-    return user;
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      status: user.status,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
   }
 }

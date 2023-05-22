@@ -1,5 +1,6 @@
 import request from 'supertest';
-import app from '../../../app';
+import app from '../../app';
+import { STATUS } from '../../server/services/user/consts/user-status.consts';
 import { PrismaClient } from '@prisma/client';
 
 describe('User API - POST CREATE /user', () => {
@@ -14,6 +15,14 @@ describe('User API - POST CREATE /user', () => {
   });
 
   beforeEach(async () => {
+    await createUser({
+      name: 'test',
+      email: 'test-create-exists@test.test',
+      password: 'S3nh@F0rt3',
+    });
+  });
+
+  afterEach(async () => {
     await prisma.user.deleteMany();
   });
 
@@ -75,14 +84,6 @@ describe('User API - POST CREATE /user', () => {
   });
 
   test('should not create a new user with already existing email', async () => {
-    const preparePayload = {
-      name: 'test',
-      email: 'test-create-exists@test.test',
-      password: 'S3nh@F0rt3',
-    };
-
-    await createUser(preparePayload);
-
     const payload = {
       name: 'test',
       email: 'test-create-exists@test.test',
@@ -106,8 +107,7 @@ describe('User API - POST CREATE /user', () => {
     expect(response.body).toHaveProperty('id');
     expect(response.body).toHaveProperty('name', payload.name);
     expect(response.body).toHaveProperty('email', payload.email);
-    expect(response.body).toHaveProperty('password');
-    expect(response.body).toHaveProperty('status', 1);
+    expect(response.body).toHaveProperty('status', STATUS.ACTIVE);
     expect(response.body).toHaveProperty('createdAt');
     expect(response.body).toHaveProperty('updatedAt');
   });

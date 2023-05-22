@@ -1,10 +1,10 @@
 import { Logger } from '../../../common/lib/logger';
 import { Errors } from '../../../common/lib/http-exeption';
-import { IUser } from '../interfaces/user-entity.interface';
-import { UserRepository } from '../repository/user.repository';
-import { STATUS } from '../consts/user-status.consts';
+import { STATUS } from './consts/user-status.consts';
+import { IUser } from '../../entities/user/user.entity';
+import { UserRepository } from '../../repositories/user/user.repository';
 
-export class ReactivateUserService {
+export class DeactivateUserService {
   private repository: UserRepository;
 
   constructor() {
@@ -17,8 +17,8 @@ export class ReactivateUserService {
       throw Errors.NOT_FOUND([{ key: 'error_404_user', data: { id } }]);
     }
 
-    if (existsUser.status === STATUS.ACTIVE) {
-      throw Errors.PRECONDITION_FAILED([{ key: 'user__already_active', data: { id } }]);
+    if (existsUser.status === STATUS.INACTIVE) {
+      throw Errors.PRECONDITION_FAILED([{ key: 'user__already_inactive', data: { id } }]);
     }
   }
 
@@ -31,13 +31,13 @@ export class ReactivateUserService {
 
     return {
       ...cUser,
-      status: STATUS.ACTIVE,
+      status: STATUS.INACTIVE,
       updatedAt: new Date(Date.now()),
     };
   }
 
   async execute(id: number) {
-    Logger.log('service - user - reactivate');
+    Logger.log('service - user - deactivate');
     Logger.dir({ id });
 
     await this.validate(id);
@@ -48,6 +48,15 @@ export class ReactivateUserService {
       return;
     }
 
-    return await this.repository.reactivate(id, data);
+    const userDeactivated = await this.repository.deactivate(id, data);
+
+    return {
+      id: userDeactivated.id,
+      name: userDeactivated.name,
+      email: userDeactivated.email,
+      status: userDeactivated.status,
+      createdAt: userDeactivated.createdAt,
+      updatedAt: userDeactivated.updatedAt,
+    };
   }
 }

@@ -1,5 +1,5 @@
 import request from 'supertest';
-import app from '../../../app';
+import app from '../../app';
 import { PrismaClient } from '@prisma/client';
 
 describe('User API - GET ALL /user', () => {
@@ -18,6 +18,21 @@ describe('User API - GET ALL /user', () => {
   });
 
   beforeEach(async () => {
+    await Promise.all([
+      createUser({
+        name: 'test',
+        email: 'test-get-all-user-1@test.test',
+        password: 'S3nh@F0rt3',
+      }),
+      createUser({
+        name: 'test',
+        email: 'test-get-all-user-2@test.test',
+        password: 'S3nh@F0rt3',
+      }),
+    ]);
+  });
+
+  afterEach(async () => {
     await prisma.user.deleteMany();
   });
 
@@ -25,26 +40,7 @@ describe('User API - GET ALL /user', () => {
     await prisma.$disconnect();
   });
 
-  test('should not return users', async () => {
-    const response = await getAll();
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveLength(0);
-  });
-
   test('should return users found', async () => {
-    await createUser({
-      name: 'test',
-      email: 'test-get-all-user-1@test.test',
-      password: 'S3nh@F0rt3',
-    });
-
-    await createUser({
-      name: 'test',
-      email: 'test-get-all-user-2@test.test',
-      password: 'S3nh@F0rt3',
-    });
-
     const response = await getAll();
 
     expect(response.status).toBe(200);

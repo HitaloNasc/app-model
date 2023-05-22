@@ -1,12 +1,12 @@
 import Router, { Request, Response } from 'express';
 import { Handler } from '../common/lib/handler';
 import { Logger } from '../common/lib/logger';
-import { GetAllUserService } from '../api/user/service/get-all.service';
-import { GetByIdUserService } from '../api/user/service/get-by-id.service';
-import { CreateUserService } from '../api/user/service/create-user.service';
-import { UpdateUserService } from '../api/user/service/update-user.service';
-import { DeactivateUserService } from '../api/user/service/deactivate-user.service';
-import { ReactivateUserService } from '../api/user/service/reactivate-user.service';
+import { GetAllUserService } from '../server/services/user/get-all.service';
+import { GetByIdUserService } from '../server/services/user/get-by-id.service';
+import { CreateUserService } from '../server/services/user/create-user.service';
+import { UpdateUserService } from '../server/services/user/update-user.service';
+import { DeactivateUserService } from '../server/services/user/deactivate-user.service';
+import { ReactivateUserService } from '../server/services/user/reactivate-user.service';
 
 const router = Router();
 const path = '/user';

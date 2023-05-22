@@ -1,10 +1,10 @@
 import { Logger } from '../../../common/lib/logger';
 import { Errors } from '../../../common/lib/http-exeption';
 import { isEmpty } from 'lodash';
-import { IUser } from '../interfaces/user-entity.interface';
-import { ICreateUser } from '../interfaces/create-user.interface';
-import { UserRepository } from '../repository/user.repository';
-import { STATUS } from '../consts/user-status.consts';
+import { IUser } from '../../entities/user/user.entity';
+import { ICreateUser } from './interfaces/create-user.interface';
+import { UserRepository } from '../../repositories/user/user.repository';
+import { STATUS } from './consts/user-status.consts';
 import { validateEmail } from '../../../common/lib/validate-email';
 import { validatePasswordStrength } from '../../../common/lib/validate-password-strength';
 import { hashPassword } from '../../../common/lib/hash-password';
@@ -65,6 +65,15 @@ export class CreateUserService {
 
     const data = await this.format(user);
 
-    return await this.repository.create(data);
+    const userCreated = await this.repository.create(data);
+
+    return {
+      id: userCreated.id,
+      name: userCreated.name,
+      email: userCreated.email,
+      status: userCreated.status,
+      createdAt: userCreated.createdAt,
+      updatedAt: userCreated.updatedAt,
+    };
   }
 }

@@ -10,6 +10,7 @@ const routes = (app: Express) => {
 
   files.forEach((file) => {
     const pathFile = Path.resolve(rootPath, file);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const { path, router } = require(pathFile);
     app.use(path, router);
   });
