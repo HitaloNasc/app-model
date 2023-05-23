@@ -13,7 +13,14 @@ export class GetByIdUserService {
     Logger.log('service - user - getByID');
     Logger.dir({ id });
 
-    const user = await this.repository.getByID(id);
+    const include = {
+      Group: true,
+      // roles: true,
+      // AuthToken: true,
+      // ActivityLog: true,
+    };
+
+    const user = await this.repository.getByID(id, include);
 
     if (!user) {
       throw Errors.NOT_FOUND([{ key: 'error_404_user', data: { id } }]);
@@ -23,6 +30,10 @@ export class GetByIdUserService {
       id: user.id,
       name: user.name,
       email: user.email,
+      groupId: user.groupId,
+      // roles: user.roles,
+      // authToken: user.authToken,
+      // activityLog: user.activityLog,
       status: user.status,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
