@@ -1,8 +1,8 @@
 import Router, { Request, Response } from 'express';
 import { Handler } from '../common/lib/handler';
 import { Logger } from '../common/lib/logger';
-import { GetAllUserService } from '../server/services/user/get-all.service';
-import { GetByIdUserService } from '../server/services/user/get-by-id.service';
+import { GetAllUserService } from '../server/services/user/get-all-user.service';
+import { GetByIdUserService } from '../server/services/user/get-by-id-user.service';
 import { CreateUserService } from '../server/services/user/create-user.service';
 import { UpdateUserService } from '../server/services/user/update-user.service';
 import { DeactivateUserService } from '../server/services/user/deactivate-user.service';

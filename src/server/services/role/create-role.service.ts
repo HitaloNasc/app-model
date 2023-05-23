@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import { IRole } from '../../entities/role/role.entity';
 import { ICreateRole } from './interfaces/create-role.interface';
 import { RoleRepository } from '../../repositories/role/role.repository';
-import { GetByIdUserService } from '../user/get-by-id.service';
+import { GetByIdUserService } from '../user/get-by-id-user.service';
 
 export class CreateRoleService {
   private repository: RoleRepository;
