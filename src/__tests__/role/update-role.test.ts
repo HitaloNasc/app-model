@@ -70,7 +70,7 @@ describe('Role API - PUT UPDATE /role', () => {
       description: 'test',
       userId: 999999,
     };
-    const response = await createRole(payload);
+    const response = await updateRole(roleTest1.id!, payload);
     expect(response.status).toBe(404);
   });
 

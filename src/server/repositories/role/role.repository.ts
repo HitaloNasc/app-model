@@ -1,6 +1,6 @@
 import { Logger } from '../../../common/lib/logger';
 import { PrismaClient } from '@prisma/client';
-import { IRoleRepository } from './role-repository.interface';
+import { IRoleRepository } from './interfaces/role-repository.interface';
 import { IRole } from '../../entities/role/role.entity';
 import { Prisma } from '@prisma/client';
 

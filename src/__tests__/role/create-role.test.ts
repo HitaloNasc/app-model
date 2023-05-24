@@ -60,7 +60,7 @@ describe('Role  API - POST CREATE /role', () => {
     expect(response.status).toBe(412);
   });
 
-  test('should not create a new role and return an exception for not sending empty name', async () => {
+  test('should not create a new role and return an exception for sending empty name', async () => {
     const payload = {
       name: '',
       description: 'test',

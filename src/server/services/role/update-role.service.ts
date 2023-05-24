@@ -35,7 +35,7 @@ export class UpdateRoleService {
     }
   }
 
-  private async formatUpdate(id: number, role: IUpdateRole): Promise<IRole | undefined> {
+  private async format(id: number, role: IUpdateRole): Promise<IRole | undefined> {
     const cRole = await this.repository.getByID(id);
 
     if (!cRole) {
@@ -57,7 +57,7 @@ export class UpdateRoleService {
 
     await this.validate(id, role);
 
-    const data = await this.formatUpdate(id, role);
+    const data = await this.format(id, role);
 
     if (!data) {
       return;

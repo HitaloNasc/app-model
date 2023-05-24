@@ -41,7 +41,7 @@ export class UpdateUserService {
     }
   }
 
-  private async formatUpdate(id: number, user: IUpdateUser): Promise<IUser | undefined> {
+  private async format(id: number, user: IUpdateUser): Promise<IUser | undefined> {
     const cUser = await this.repository.getByID(id);
 
     if (!cUser) {
@@ -66,7 +66,7 @@ export class UpdateUserService {
 
     await this.validate(id, user);
 
-    const data = await this.formatUpdate(id, user);
+    const data = await this.format(id, user);
 
     if (!data) {
       return;

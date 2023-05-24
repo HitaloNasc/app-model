@@ -1,4 +1,4 @@
-import { IRole } from '../../entities/role/role.entity';
+import { IRole } from '../../../entities/role/role.entity';
 import { Prisma } from '@prisma/client';
 
 export interface IRoleRepository {

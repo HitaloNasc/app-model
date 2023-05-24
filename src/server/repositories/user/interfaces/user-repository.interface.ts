@@ -1,4 +1,4 @@
-import { IUser } from '../../entities/user/user.entity';
+import { IUser } from '../../../entities/user/user.entity';
 import { Prisma } from '@prisma/client';
 
 export interface IUserRepository {

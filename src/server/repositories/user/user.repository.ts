@@ -1,6 +1,6 @@
 import { Logger } from '../../../common/lib/logger';
 import { PrismaClient } from '@prisma/client';
-import { IUserRepository } from './user-repository.interface';
+import { IUserRepository } from './interfaces/user-repository.interface';
 import { IUser } from '../../entities/user/user.entity';
 import { Prisma } from '@prisma/client';
 
